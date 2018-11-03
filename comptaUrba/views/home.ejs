@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title>Place Autocomplete and Directions</title>
@@ -7,8 +6,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
   </head>
-
-<body>
+  <body>
   <nav class ="navbar navbar-expand-sm bg-light navbar-light">
 
     <div class = "container-fluid">
@@ -139,101 +137,101 @@
        }
         var markersToilet = [
                 {coords:{lat:22.45952, lng:113.99006},
-                  iconImage:'./ImagesDeloitteHackathon/ToiletGreen.png',
+                  iconImage:'ToiletGreen.png',
                   content:'Fung Kong Tsuen (Entrance) Public Toilet'},
                 {coords:{lat:22.461663,lng:113.980433},
-                  iconImage:'./ImagesDeloitteHackathon/ToiletRed.png',
+                  iconImage:'ToiletRed.png',
                   content:'Lau Fau Shan Sheung Pak Nai Sha Kong Miu Public Toilet'},
                 {coords:{lat:22.4437111,lng:114.028009},
-                  iconImage:'./ImagesDeloitteHackathon/ToiletGrey.png',
+                  iconImage:'ToiletGrey.png',
                   content:'Hong King Street Public Toilet'},
                 {coords:{lat:22.4519672,lng:113.9920848},
-                iconImage:'./ImagesDeloitteHackathon/ToiletGreen.png',
+                iconImage:'ToiletGreen.png',
                 content:'Hong Mei Tsuen Public Toilet'},
                 {coords:{lat:22.490123,lng:114.123408},
-                iconImage:'./ImagesDeloitteHackathon/ToiletGrey.png',
+                iconImage:'ToiletGrey.png',
                 content:'Ping Kong Tsuen Public Toilet'}];
 
         var markersMall = [
                 {coords:{lat:22.2869298,lng:114.1357307},
-                  iconImage:'./ImagesDeloitteHackathon/MallGreen.png',
+                  iconImage:'MallGreen.png',
                   content:'Hong Kong Plaza'},
                 {coords:{lat:22.2809521,lng:114.186538},
-                  iconImage:'./ImagesDeloitteHackathon/MallRed.png',
+                  iconImage:'MallRed.png',
                   content:'宜家家居 IKEA'},
                   {coords:{lat:22.2773609,lng:114.1732094},
-                  iconImage:'./ImagesDeloitteHackathon/MallGrey.png',
+                  iconImage:'MallGrey.png',
                   content:'Wanchai Computer Center'},
                   {coords:{lat:22.281388,lng:114.221222},
-                  iconImage:'./ImagesDeloitteHackathon/MallGreen.png',
+                  iconImage:'MallGreen.png',
                   content:'Cheung Hong Estate Commercial Centre No.1'},
                   {coords:{lat:22.2773783,lng:114.1775306},
-                    iconImage:'./ImagesDeloitteHackathon/MallGreen.png',
+                    iconImage:'MallGreen.png',
                     content:'ICE FIRE'}];
 
         var markersPublicTransport = [
                 {coords:{lat:22.3775691,lng:114.1863948},
-                iconImage:'./ImagesDeloitteHackathon/TranspoRed.png',
+                iconImage:'TranspoRed.png',
                 content:'Hong Kong Heritage'},
                 {coords:{lat:22.412016,lng:113.9787496},
-                iconImage:'./ImagesDeloitteHackathon/TranspoGrey.png',
+                iconImage:'TranspoGrey.png',
                 content:'Light Rail Siu Hong Stop'},
                 {coords:{lat:22.280238,lng:114.1891467},
-                iconImage:'./ImagesDeloitteHackathon/TranspoGrey.png',
+                iconImage:'TranspoGrey.png',
                 content:'Hong Kong Central Library'},
                 {coords:{lat:22.413656,lng:114.2099405},
-                iconImage:'./ImagesDeloitteHackathon/TranspoRed.png',
+                iconImage:'TranspoRed.png',
                 content:'Chinese University of Hong Kong Subway Entrance'},
                 {coords:{lat:22.2944576,lng:114.1712548},
-                iconImage:'./ImagesDeloitteHackathon/TranspoRed.png',
+                iconImage:'TranspoRed.png',
                 content:'Hong Kong Cultural Centre'}];
 
         var markersAccomodation = [
                 {coords:{lat:22.3031647,lng:114.1602124},
-                iconImage:'./ImagesDeloitteHackathon/AccomodationGrey.png',
+                iconImage:'AccomodationGrey.png',
                 content:'The Ritz-Carlton Hong Kong'},
                 {coords:{lat:22.2951348,lng:114.1718163},
-                iconImage:'./ImagesDeloitteHackathon/AccomodationGreen.png',
+                iconImage:'AccomodationGreen.png',
                 content:'The Peninsula Hong Kong'},
                 {coords:{lat:22.2951462,lng:114.1728663},
-                iconImage:'./ImagesDeloitteHackathon/AccomodationGreen.png',
+                iconImage:'AccomodationGreen.png',
                 content:'Sheraton Hong Kong Hotel'},
                 {coords:{lat:22.29217675,lng:114.20076475},
-                iconImage:'./ImagesDeloitteHackathon/AccomodationRed.png',
+                iconImage:'AccomodationRed.png',
                 content:'Ibis Hong Kong North Point'},
                 {coords:{lat:22.29750632,lng:114.1740154},
-                iconImage:'./ImagesDeloitteHackathon/AccomodationGreen.png',
+                iconImage:'AccomodationGreen.png',
                 content:'Hyatt Regency Hong Kong'}];
 
       var markersTourism = [
                 {coords:{lat:22.3127332,lng:114.041279},
-                iconImage:'./ImagesDeloitteHackathon/TouristGreen.png',
+                iconImage:'TouristGreen.png',
                 content:'Hong Kong Disneyland'},
                 {coords:{lat:22.2967373,lng:114.1759416},
-                iconImage:'./ImagesDeloitteHackathon/TouristGrey.png',
+                iconImage:'TouristGrey.png',
                 content:'Bruce Lee Statue'},
                 {coords:{lat:22.2937847,lng:114.1703572},
-                iconImage:'./ImagesDeloitteHackathon/TouristGreen.png',
+                iconImage:'TouristGreen.png',
                 content:'Hong Kong Cultural Centre'},
                 {coords:{lat:22.2852743,lng:114.1614869},
-                iconImage:'./ImagesDeloitteHackathon/TouristRed.png',
+                iconImage:'TouristRed.png',
                 content:'The Hong Kong Observation Wheel'},
                 {coords:{lat:22.4457554,lng:114.0090064},
-                iconImage:'./ImagesDeloitteHackathon/TouristGrey.png',
+                iconImage:'/TouristGrey.png',
                 content:'Yan Tun Kong Study Hall'}];
 
         var markersRestaurant = [
             {coords:{lat:22.28004,lng:114.17968},
-            iconImage:'./ImagesDeloitteHackathon/RestoGreen.png',
+            iconImage:'RestoGreen.png',
             content:'Hee Kee Fried Crab Expert'},
             {coords:{lat:22.3099657,lng:114.041735},
-            iconImage:'./ImagesDeloitteHackathon/RestoRed.png',
+            iconImage:'RestoRed.png',
             content:'Lucky Nugget Saloon'},
             {coords:{lat:22.33513,lng:114.1956084},
-            iconImage:'./ImagesDeloitteHackathon/RestoGrey.png',
+            iconImage:'RestoGrey.png',
             content:'華園甜品'},
             {coords:{lat:22.3346118,lng:114.1972439},
-            iconImage:'./ImagesDeloitteHackathon/RestoGreen.png',
+            iconImage:'RestoGreen.png',
             content:'得龍大飯店'}];
 
         function removeMarkers(){
