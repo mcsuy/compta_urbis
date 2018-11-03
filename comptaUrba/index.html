@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Compta Urban</title>
+    <style>
+      #map{
+        height:400px;
+        width:100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Compta Urbana</h1>
+    <input id="origin-input" class="controls" type="text"
+       placeholder="Enter an origin location">
+
+   <input id="destination-input" class="controls" type="text"
+       placeholder="Enter a destination location">
+
+   <div id="mode-selector" class="controls">
+     <input type="radio" name="type" id="changemode-walking" checked="checked">
+     <label for="changemode-walking">Walking</label>
+
+     <input type="radio" name="type" id="changemode-transit">
+     <label for="changemode-transit">Transit</label>
+
+     <input type="radio" name="type" id="changemode-driving">
+     <label for="changemode-driving">Driving</label>
+   </div>
+    <div id="map"></div>
+    <script>
+        function initMap(){
+          var iconBase = "https://maps.google.com/mapfiles/kml/shapes/";
+          var options = {
+            zoom: 12,
+            center:{lat:22.3964,lng:114.1095}
+          }
+          var map = new google.maps.Map(document.getElementById('map'), options);
+
+        function addMarker(props){
+          var marker = new google.maps.Marker({
+               position:props.coords,
+               map:map,
+           });
+           if (props.iconImage){
+             marker.setIcon(props.iconImage);
+           }
+           if (props.content){
+             var infoWindow = new google.maps.InfoWindow({
+                  content: props.content
+                });
+
+                marker.addListener('click', function(){
+                  infoWindow.open(map,marker);
+             });
+           }
+        }
+        var markers = [
+                  {coords:{lat:22.3664,lng:114.1195},
+                    iconImage:'ApprovedSmall.png',
+                    content:'<h1>Da bass</h1>'},
+                  {coords:{lat:22.3964,lng:114.135},
+                    iconImage:iconBase + 'parking_lot_maps.png'},
+                  {coords:{lat:22.4264,lng:114.145},
+                    iconImage:iconBase + 'parking_lot_maps.png'}
+                  ];
+
+        for (var i=0; i<markers.length; i++){
+          addMarker(markers[i]);
+        }
+      }
+      // var autocomplete = new google.maps.places.Autocomplete(DOM_MODE);
+      // autocomplete.nindTo('bounds', map);
+      // autocomplete.addListener('place_changed', () => {
+      //   const place = autocomplete.getPlace();
+      // });
+      // var directions = http://maps.googleapis.com/maps/api/directions/outputFormat?parameters
+
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKAQxgaAwq81uOv1RGgoV9CgcZpHIr03I&callback=initMap">
+    </script>
+
+  </body>
+</html>

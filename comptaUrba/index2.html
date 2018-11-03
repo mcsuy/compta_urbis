@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Place Autocomplete and Directions</title>
+     <link rel="stylesheet" href="style.css">
+     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+  </head>
+
+<body>
+  <nav class ="navbar navbar-expand-sm bg-light navbar-light">
+
+    <div class = "container-fluid">
+       <div class="mx-auto order-0">
+         <a class="navbar-brand">Handirect</a>
+       </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item"><a>Login</a></li>
+          <li class="nav-item"><a>Sign Up</a></li>
+          <li class="nav-item"><a>Logout</a></li>
+          <li class="nav-item"><a>Contribute</a></li>
+          <li class="nav-item"><a>Contact Us</a></li>
+        </ul>
+      </div>
+     </div>
+  </nav>
+
+  <br></br>
+  <br></br>
+
+<div id="jumbotron" class='container'>
+  <header id="jumbo_head" class = "jumbotron">
+    <div class = 'container'  style="text-align:center;">  <!--this is just to help preserve the spacing after shrinking-->
+      <h1 id="welcome">Welcome to Handirect!!!</h1>
+      <br></br>
+      <h2 style="color: #031726; font-style:italic;">Independence, Freedom, and Confidence</h2>
+      <br></br>
+      <p style="text-align:center; color: #031726;"> For Those Who Wish To Contribute Information and Donations, Please Select The Large Button That Says CONTRIBUTE.</p>
+      <p>
+        <!--the pargraph tags are jsut for more spavcing  -->
+        <a id='btn-new' class='btn btn-lg'>Contribute</a>
+      </p>
+    </div>
+  </header>
+</div>
+
+<div class='container'>
+  <p>
+  <h1> Find Different Handirect Certified Facilities:</h1>
+  <h2 id=linebar>___________________</h2>
+  </p>
+
+  <div id="map1"></div>
+
+  <div class="container">
+    <div class="row">
+      <a id="Toilet" class='btn btn-outline-info col-lg-4'>Toilets</a>
+      <a id="Mall" class='btn btn-outline-info col-lg-4'>Shopping Malls</a>
+      <a id="publicTransport" class='btn btn-outline-info col-lg-4'>Public Transport</a>
+    </div>
+    <div class="row">
+      <a id="Accomodation" class='btn btn-outline-info col-lg-4'>Accomodation& Hotels</a>
+      <a id="Tourism" class='btn btn-outline-info col-lg-4'>Tourist Hotspots</a>
+      <a id="Restaurant" class='btn btn-outline-info col-lg-4'>Restaurant</a>
+    </div>
+  </div>
+
+  <br></br>
+  <br></br>
+
+  <h1> Plan Your Journey:</h1>
+  <h2 id=linebar>________________</h2>
+
+  <input id="origin-input" class="controls" type="text"
+        placeholder="Enter an origin location">
+
+  <input id="destination-input" class="controls" type="text"
+        placeholder="Enter a destination location">
+
+  <div id="mode-selector" class="controls">
+      <input type="radio" name="type" id="changemode-walking" checked="checked">
+      <label for="changemode-walking">Walking</label>
+
+      <input type="radio" name="type" id="changemode-transit">
+      <label for="changemode-transit">Transit</label>
+
+      <input type="radio" name="type" id="changemode-driving">
+      <label for="changemode-driving">Driving</label>
+  </div>
+
+  <div id="map2"></div>
+  <br></br>
+  <div style='text-align:center;'>
+    <a id="uber" style="color:black;" class='btn btn-outline-dark btn-lg' >Get a Ride with Uber</a>
+  </div>
+
+  <br></br>
+  <br></br>
+  <br></br>
+  <br></br>
+  <br></br>
+  <br></br>
+</div>
+
+
+  <script>
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      var gmarkers = []
+
+      function initMap() {
+        var iconBase = "https://maps.google.com/mapfiles/kml/shapes/";
+        var options = {
+          zoom: 11,
+          center:{lat:22.3964,lng:114.1095}
+        }
+        var map1 = new google.maps.Map(document.getElementById('map1'), options);
+        function addMarker(props){
+        var marker = new google.maps.Marker({
+             position:props.coords,
+             map:map1,
+         });
+         if (props.iconImage){
+           marker.setIcon(props.iconImage);
+         }
+
+         if (props.content){
+           var infoWindow = new google.maps.InfoWindow({
+                content: props.content
+              });
+
+          marker.addListener('click', function(){
+                infoWindow.open(map1,marker);
+           });
+         }
+         gmarkers.push(marker);
+       }
+        var markersToilet = [
+                {coords:{lat:22.45952, lng:113.99006},
+                  iconImage:'./ImagesDeloitteHackathon/ToiletGreen.png',
+                  content:'Fung Kong Tsuen (Entrance) Public Toilet'},
+                {coords:{lat:22.461663,lng:113.980433},
+                  iconImage:'./ImagesDeloitteHackathon/ToiletRed.png',
+                  content:'Lau Fau Shan Sheung Pak Nai Sha Kong Miu Public Toilet'},
+                {coords:{lat:22.4437111,lng:114.028009},
+                  iconImage:'./ImagesDeloitteHackathon/ToiletGrey.png',
+                  content:'Hong King Street Public Toilet'},
+                {coords:{lat:22.4519672,lng:113.9920848},
+                iconImage:'./ImagesDeloitteHackathon/ToiletGreen.png',
+                content:'Hong Mei Tsuen Public Toilet'},
+                {coords:{lat:22.490123,lng:114.123408},
+                iconImage:'./ImagesDeloitteHackathon/ToiletGrey.png',
+                content:'Ping Kong Tsuen Public Toilet'}];
+
+        var markersMall = [
+                {coords:{lat:22.2869298,lng:114.1357307},
+                  iconImage:'./ImagesDeloitteHackathon/MallGreen.png',
+                  content:'Hong Kong Plaza'},
+                {coords:{lat:22.2809521,lng:114.186538},
+                  iconImage:'./ImagesDeloitteHackathon/MallRed.png',
+                  content:'宜家家居 IKEA'},
+                  {coords:{lat:22.2773609,lng:114.1732094},
+                  iconImage:'./ImagesDeloitteHackathon/MallGrey.png',
+                  content:'Wanchai Computer Center'},
+                  {coords:{lat:22.281388,lng:114.221222},
+                  iconImage:'./ImagesDeloitteHackathon/MallGreen.png',
+                  content:'Cheung Hong Estate Commercial Centre No.1'},
+                  {coords:{lat:22.2773783,lng:114.1775306},
+                    iconImage:'./ImagesDeloitteHackathon/MallGreen.png',
+                    content:'ICE FIRE'}];
+
+        var markersPublicTransport = [
+                {coords:{lat:22.3775691,lng:114.1863948},
+                iconImage:'./ImagesDeloitteHackathon/TranspoRed.png',
+                content:'Hong Kong Heritage'},
+                {coords:{lat:22.412016,lng:113.9787496},
+                iconImage:'./ImagesDeloitteHackathon/TranspoGrey.png',
+                content:'Light Rail Siu Hong Stop'},
+                {coords:{lat:22.280238,lng:114.1891467},
+                iconImage:'./ImagesDeloitteHackathon/TranspoGrey.png',
+                content:'Hong Kong Central Library'},
+                {coords:{lat:22.413656,lng:114.2099405},
+                iconImage:'./ImagesDeloitteHackathon/TranspoRed.png',
+                content:'Chinese University of Hong Kong Subway Entrance'},
+                {coords:{lat:22.2944576,lng:114.1712548},
+                iconImage:'./ImagesDeloitteHackathon/TranspoRed.png',
+                content:'Hong Kong Cultural Centre'}];
+
+        var markersAccomodation = [
+                {coords:{lat:22.3031647,lng:114.1602124},
+                iconImage:'./ImagesDeloitteHackathon/AccomodationGrey.png',
+                content:'The Ritz-Carlton Hong Kong'},
+                {coords:{lat:22.2951348,lng:114.1718163},
+                iconImage:'./ImagesDeloitteHackathon/AccomodationGreen.png',
+                content:'The Peninsula Hong Kong'},
+                {coords:{lat:22.2951462,lng:114.1728663},
+                iconImage:'./ImagesDeloitteHackathon/AccomodationGreen.png',
+                content:'Sheraton Hong Kong Hotel'},
+                {coords:{lat:22.29217675,lng:114.20076475},
+                iconImage:'./ImagesDeloitteHackathon/AccomodationRed.png',
+                content:'Ibis Hong Kong North Point'},
+                {coords:{lat:22.29750632,lng:114.1740154},
+                iconImage:'./ImagesDeloitteHackathon/AccomodationGreen.png',
+                content:'Hyatt Regency Hong Kong'}];
+
+      var markersTourism = [
+                {coords:{lat:22.3127332,lng:114.041279},
+                iconImage:'./ImagesDeloitteHackathon/TouristGreen.png',
+                content:'Hong Kong Disneyland'},
+                {coords:{lat:22.2967373,lng:114.1759416},
+                iconImage:'./ImagesDeloitteHackathon/TouristGrey.png',
+                content:'Bruce Lee Statue'},
+                {coords:{lat:22.2937847,lng:114.1703572},
+                iconImage:'./ImagesDeloitteHackathon/TouristGreen.png',
+                content:'Hong Kong Cultural Centre'},
+                {coords:{lat:22.2852743,lng:114.1614869},
+                iconImage:'./ImagesDeloitteHackathon/TouristRed.png',
+                content:'The Hong Kong Observation Wheel'},
+                {coords:{lat:22.4457554,lng:114.0090064},
+                iconImage:'./ImagesDeloitteHackathon/TouristGrey.png',
+                content:'Yan Tun Kong Study Hall'}];
+
+        var markersRestaurant = [
+            {coords:{lat:22.28004,lng:114.17968},
+            iconImage:'./ImagesDeloitteHackathon/RestoGreen.png',
+            content:'Hee Kee Fried Crab Expert'},
+            {coords:{lat:22.3099657,lng:114.041735},
+            iconImage:'./ImagesDeloitteHackathon/RestoRed.png',
+            content:'Lucky Nugget Saloon'},
+            {coords:{lat:22.33513,lng:114.1956084},
+            iconImage:'./ImagesDeloitteHackathon/RestoGrey.png',
+            content:'華園甜品'},
+            {coords:{lat:22.3346118,lng:114.1972439},
+            iconImage:'./ImagesDeloitteHackathon/RestoGreen.png',
+            content:'得龍大飯店'}];
+
+        function removeMarkers(){
+          for(i=0; i<gmarkers.length; i++){
+              gmarkers[i].setMap(null);
+            }
+          }
+
+        var button1 = document.querySelector("#Toilet");
+        button1.addEventListener("click", function(){
+          removeMarkers();
+          for (var i=0; i<markersToilet.length; i++){
+          addMarker(markersToilet[i]);
+          }
+        });
+        var button2 = document.querySelector("#Mall");
+        button2.addEventListener("click", function(){
+                removeMarkers();
+          for (var i=0; i<markersMall.length; i++){
+          addMarker(markersMall[i]);
+          }
+        });
+        var button3 = document.querySelector("#publicTransport");
+        button3.addEventListener("click", function(){
+          removeMarkers();
+          for (var i=0; i<markersPublicTransport.length; i++){
+          addMarker(markersPublicTransport[i]);
+          }
+        });
+        var button4 = document.querySelector("#Accomodation");
+        button4.addEventListener("click", function(){
+            removeMarkers();
+          for (var i=0; i<markersAccomodation.length; i++){
+          addMarker(markersAccomodation[i]);
+          }
+        });
+        var button5 = document.querySelector("#Tourism");
+        button5.addEventListener("click", function(){
+              removeMarkers();
+          for (var i=0; i<markersTourism.length; i++){
+          addMarker(markersTourism[i]);
+          }
+        });
+        var button6 = document.querySelector("#Restaurant");
+        button6.addEventListener("click", function(){
+            removeMarkers();
+          for (var i=0; i<markersRestaurant.length; i++){
+          addMarker(markersRestaurant[i]);
+          }
+        });
+
+
+        for (var i=0; i<markersToilet.length; i++){
+        addMarker(markersToilet[i]);
+      };
+
+
+        var map2 = new google.maps.Map(document.getElementById('map2'), {
+          mapTypeControl: false,
+          center: {lat:22.3964,lng:114.1095},
+          zoom: 11
+        });
+
+        function addMarker2(props){
+        var marker = new google.maps.Marker({
+             position:props.coords,
+             map:map2,
+         });
+         if (props.iconImage){
+           marker.setIcon(props.iconImage);
+         }
+
+         if (props.content){
+           var infoWindow = new google.maps.InfoWindow({
+                content: props.content
+              });
+
+          marker.addListener('click', function(){
+                infoWindow.open(map1,marker);
+           });
+         }
+       }
+       for (var i=0; i<markersToilet.length; i++){
+       addMarker2(markersTourism[i]);
+      };
+
+        new AutocompleteDirectionsHandler(map2);
+      }
+       /**
+        *@constructor
+       */
+      function AutocompleteDirectionsHandler(map) {
+        this.map = map;
+        this.originPlaceId = null;
+        this.destinationPlaceId = null;
+        this.travelMode = 'WALKING';
+        var originInput = document.getElementById('origin-input');
+        var destinationInput = document.getElementById('destination-input');
+        var modeSelector = document.getElementById('mode-selector');
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.directionsDisplay.setMap(map);
+
+        var originAutocomplete = new google.maps.places.Autocomplete(
+            originInput, {placeIdOnly: true});
+        var destinationAutocomplete = new google.maps.places.Autocomplete(
+            destinationInput, {placeIdOnly: true});
+
+        this.setupClickListener('changemode-walking', 'WALKING');
+        this.setupClickListener('changemode-transit', 'TRANSIT');
+        this.setupClickListener('changemode-driving', 'DRIVING');
+        this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+        this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+
+        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
+        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
+        this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
+      }
+
+      // Sets a listener on a radio button to change the filter type on Places
+      // Autocomplete.
+      AutocompleteDirectionsHandler.prototype.setupClickListener = function(id, mode) {
+        var radioButton = document.getElementById(id);
+        var me = this;
+        radioButton.addEventListener('click', function() {
+          me.travelMode = mode;
+          me.route();
+        });
+      };
+
+      AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
+        var me = this;
+        autocomplete.bindTo('bounds', this.map);
+        autocomplete.addListener('place_changed', function() {
+          var place = autocomplete.getPlace();
+          if (!place.place_id) {
+            window.alert("Please select an option from the dropdown list.");
+            return;
+          }
+          if (mode === 'ORIG') {
+            me.originPlaceId = place.place_id;
+          } else {
+            me.destinationPlaceId = place.place_id;
+          }
+          me.route();
+        });
+
+      };
+
+      AutocompleteDirectionsHandler.prototype.route = function() {
+        if (!this.originPlaceId || !this.destinationPlaceId) {
+          return;
+        }
+        var me = this;
+
+        this.directionsService.route({
+          origin: {'placeId': this.originPlaceId},
+          destination: {'placeId': this.destinationPlaceId},
+          travelMode: this.travelMode
+        }, function(response, status) {
+          if (status === 'OK') {
+            me.directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      };
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKAQxgaAwq81uOv1RGgoV9CgcZpHIr03I&libraries=places&callback=initMap"
+        async defer>
+    </script>
+  </body>
+</html>
